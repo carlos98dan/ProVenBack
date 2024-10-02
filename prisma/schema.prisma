@@ -34,12 +34,20 @@ model Client {
   sales   Sale[] @relation("ClientSales")
 }
 
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[] @relation("CategoryProducts")
+}
+
 model Product {
   id          String       @id @default(cuid())
   name        String
   price       Float
   stock       Int
   saleDetails SaleDetail[]
+  Category    Category?    @relation("CategoryProducts", fields: [categoryId], references: [id])
+  categoryId  String?
 }
 
 model Sale {
