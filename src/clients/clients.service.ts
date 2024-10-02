@@ -17,20 +17,20 @@ export class ClientsService {
     return this.prismaService.client.findMany();
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.prismaService.client.findUnique({
       where: { id },
     });
   }
 
-  update(id: string, updateClientDto: UpdateClientDto) {
+  update(id: number, updateClientDto: UpdateClientDto) {
     return this.prismaService.client.update({
       data: updateClientDto,
       where: { id },
     });
   }
 
-  remove(id: string) {
+  remove(id: number) {
     return this.prismaService.client.delete({
       where: { id },
     });
