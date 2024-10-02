@@ -28,14 +28,17 @@ model Seller {
 }
 
 model Client {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  phone     String
-  address   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  sales     Sale[]   @relation("ClientSales")
+  id             Int      @id @default(autoincrement())
+  firstName      String
+  secondName     String?
+  firstLastName  String
+  secondLastName String?
+  email          String   @unique
+  phone          String
+  address        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  sales          Sale[]   @relation("ClientSales")
 }
 
 model Category {
