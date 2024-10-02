@@ -57,8 +57,8 @@ model Product {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   saleDetails SaleDetail[]
-  Category    Category?    @relation("CategoryProducts", fields: [categoryId], references: [id])
-  categoryId  Int?
+  Category    Category     @relation("CategoryProducts", fields: [categoryId], references: [id])
+  categoryId  Int
 }
 
 model Sale {
