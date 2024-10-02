@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sales     Sale[]   @relation("UserSales")
+}
+
+model Seller {
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
+  phone String
+  sales Sale[] @relation("SellerSales")
+}
+
+model Client {
+  id      String @id @default(cuid())
+  name    String
+  email   String @unique
+  phone   String
+  address String
+  sales   Sale[] @relation("ClientSales")
+}
+
+model Product {
+  id          String       @id @default(cuid())
+  name        String
+  price       Float
+  stock       Int
+  saleDetails SaleDetail[]
+}
+
+model Sale {
+  id          String       @id @default(cuid())
+  date        DateTime     @default(now())
+  total       Float
+  user        User         @relation("UserSales", fields: [userId], references: [id])
+  userId      String
+  seller      Seller       @relation("SellerSales", fields: [sellerId], references: [id])
+  sellerId    String
+  client      Client       @relation("ClientSales", fields: [clientId], references: [id])
+  clientId    String
+  saleDetails SaleDetail[]
+}
+
+model SaleDetail {
+  id        String  @id @default(cuid())
+  quantity  Int
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  sale      Sale    @relation(fields: [saleId], references: [id])
+  saleId    String
+}
+
+enum Role {
+  ADMIN
+  SELLER
+}
