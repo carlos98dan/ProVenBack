@@ -1,16 +1,26 @@
-import { IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateSellerDto {
   @IsNotEmpty()
+  @IsString()
   firstName: string;
 
   @IsOptional()
+  @IsString()
   secondName?: string;
 
   @IsNotEmpty()
+  @IsString()
   firstLastName: string;
 
   @IsOptional()
+  @IsString()
   secondLastName?: string;
 
   @IsNotEmpty()
@@ -18,6 +28,7 @@ export class CreateSellerDto {
   email: string;
 
   @IsNotEmpty()
+  @IsString()
   @MinLength(10)
   phone: string;
 }
